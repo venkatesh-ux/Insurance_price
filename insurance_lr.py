@@ -11,17 +11,17 @@ Original file is located at
 Importing data
 """
 
-import pandas as pd
-import numpy as np
-import matplotlib.pyplot as plt
-import seaborn as sns
+import pandas as pd # type: ignore
+import numpy as np # type: ignore
+import matplotlib.pyplot as plt # type: ignore
+import seaborn as sns # type: ignore
 
-!gdown "https://drive.google.com/uc?id=1NBk1TFkK4NeKdodR2DxIdBp2Mk1mh4AS"
+#!gdown "https://drive.google.com/uc?id=1NBk1TFkK4NeKdodR2DxIdBp2Mk1mh4AS"
 
 df = pd.read_csv('insurance.csv')
 df.head()
 
-from pandas.plotting import scatter_matrix
+from pandas.plotting import scatter_matrix # type: ignore
 
 attributes = ['Age','Height','Weight','PremiumPrice']
 
@@ -57,7 +57,7 @@ plt.show()
 
 """Drop BMI or weight because thet are heighly correlated."""
 
-from sklearn.preprocessing import StandardScaler
+from sklearn.preprocessing import StandardScaler # type: ignore
 
 scale = StandardScaler()
 
@@ -66,7 +66,7 @@ df.head()
 
 #train_test_split
 
-from sklearn.model_selection import train_test_split
+from sklearn.model_selection import train_test_split # type: ignore
 
 X = df.drop(columns=['PremiumPrice','BMI'])
 y = df['PremiumPrice']
@@ -81,7 +81,7 @@ Xtest.shape, ytest.shape
 
 """### **Linear Regression**"""
 
-from sklearn.linear_model import LinearRegression
+from sklearn.linear_model import LinearRegression # type: ignore
 
 model = LinearRegression()
 
@@ -91,7 +91,7 @@ model.coef_
 
 model.intercept_
 
-import matplotlib.pyplot as plt
+import matplotlib.pyplot as plt # type: ignore
 fig = plt.figure()
 y_hat = model.predict(Xtest)
 plt.scatter(y_hat,ytest)
@@ -107,7 +107,7 @@ model.score(Xtest,ytest)
 ### Model Building
 """
 
-!gdown "https://drive.google.com/uc?id=1NBk1TFkK4NeKdodR2DxIdBp2Mk1mh4AS"
+#!gdown "https://drive.google.com/uc?id=1NBk1TFkK4NeKdodR2DxIdBp2Mk1mh4AS"
 
 df = pd.read_csv('insurance.csv')
 df.head()
@@ -128,14 +128,14 @@ y = df['PremiumPrice']
 X.shape,y.shape
 
 # Split the data into training and testing sets
-from sklearn.model_selection import train_test_split
+from sklearn.model_selection import train_test_split # type: ignore
 
 X_tr_cv,X_test,y_tr_cv,y_test = train_test_split(X,y,test_size=0.15,random_state=42)
 X_train,X_val,y_train,y_val = train_test_split(X_tr_cv,y_tr_cv,test_size=0.17,random_state=42)
 
 """### **StandardScaler**"""
 
-from sklearn.preprocessing import StandardScaler
+from sklearn.preprocessing import StandardScaler # type: ignore
 
 scale = StandardScaler()
 
@@ -150,8 +150,8 @@ X_test.shape,y_test.shape
 
 """## KFold CrossValidation"""
 
-from sklearn.model_selection import KFold,cross_val_score
-from sklearn.metrics import mean_squared_error
+from sklearn.model_selection import KFold,cross_val_score # type: ignore
+from sklearn.metrics import mean_squared_error # type: ignore
 
 kf = KFold(n_splits=5,shuffle=True,random_state=42)
 
@@ -162,16 +162,16 @@ R2_scores = cross_val_score(model, X_train, y_train, cv=kf, scoring='r2')
 # Convert to positive MSE and print mean score
 print(f"R2 Score: {np.mean(R2_scores):.4f}")
 
-from sklearn.preprocessing import StandardScaler
+from sklearn.preprocessing import StandardScaler # type: ignore
 
 # Split the data into training and testing sets
-from sklearn.model_selection import train_test_split
+from sklearn.model_selection import train_test_split # type: ignore
 
 X_tr_cv,X_test,y_tr_cv,y_test = train_test_split(X,y,test_size=0.15,random_state=42)
 X_train,X_val,y_train,y_val = train_test_split(X_tr_cv,y_tr_cv,test_size=0.17,random_state=42)
 
 from math import degrees
-from sklearn.preprocessing import PolynomialFeatures
+from sklearn.preprocessing import PolynomialFeatures # type: ignore
 
 # Transform the features into polynomial features
 degree = 5
@@ -186,7 +186,7 @@ X_test_poly_scaled = scaler.transform(X_test_poly)
 
 """Using Sklearn's Linear Regression"""
 
-from sklearn.linear_model import LinearRegression
+from sklearn.linear_model import LinearRegression # type: ignore
 
 model = LinearRegression()
 
@@ -194,7 +194,7 @@ model.fit(X_train_poly_Scaled,y_train)
 
 output = model.predict(X_test_poly_scaled)
 
-from sklearn.metrics import mean_squared_error
+from sklearn.metrics import mean_squared_error # type: ignore
 
 print('MSE for test:', mean_squared_error(y_test, output))
 
@@ -209,11 +209,11 @@ print('MSE for train:', mean_squared_error(y_train, output))
 def adj_r2(X,y,r2_score):
   return 1-((1-r2_score)*(len(y)-1))/(len(y)-X.shape[1]-1)
 
-from sklearn.preprocessing import PolynomialFeatures
-from sklearn.preprocessing import StandardScaler
-from sklearn.linear_model import Ridge
-from sklearn.pipeline import make_pipeline
-from sklearn.linear_model import LinearRegression
+from sklearn.preprocessing import PolynomialFeatures # type: ignore
+from sklearn.preprocessing import StandardScaler # type: ignore
+from sklearn.linear_model import Ridge # type: ignore
+from sklearn.pipeline import make_pipeline # type: ignore
+from sklearn.linear_model import LinearRegression # type: ignore
 
 train_scores = []
 val_scores = []
@@ -241,7 +241,7 @@ plt.show()
 
 """## PolynomialFeatures"""
 
-from sklearn.model_selection import KFold
+from sklearn.model_selection import KFold # type: ignore
 kf = KFold(n_splits=5)
 
 degrees = 5  # Maximum polynomial degree
@@ -321,12 +321,12 @@ print(f'Mean_fold_val_scores: {val_score}')
 # **Now lets check implementing Tree-based Models.**
 """
 
-from sklearn.model_selection import train_test_split, KFold, cross_val_score
-from sklearn.ensemble import GradientBoostingRegressor
-from sklearn.preprocessing import StandardScaler
+from sklearn.model_selection import train_test_split, KFold, cross_val_score # type: ignore
+from sklearn.ensemble import GradientBoostingRegressor # type: ignore
+from sklearn.preprocessing import StandardScaler # type: ignore
 #from sklearn.pipeline import make_pipeline
 
-!gdown "https://drive.google.com/uc?id=1NBk1TFkK4NeKdodR2DxIdBp2Mk1mh4AS"
+#!gdown "https://drive.google.com/uc?id=1NBk1TFkK4NeKdodR2DxIdBp2Mk1mh4AS"
 
 df = pd.read_csv('insurance.csv')
 df.head()
@@ -334,7 +334,7 @@ df.head()
 # Split into train and test (90-10 split for small data)
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
 
-from sklearn.ensemble import GradientBoostingRegressor
+from sklearn.ensemble import GradientBoostingRegressor # type: ignore
 
 model = GradientBoostingRegressor(n_estimators=30,learning_rate=0.15,loss='squared_error',random_state=42)
 
