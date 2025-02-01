@@ -31,7 +31,7 @@ with col2:
     st.write("Weight : ", weight)
 
 with col3:
-    height = st.slider("Select your Height", 30, 130, 25)
+    height = st.slider("Select your Height", 30, 200, 25)
     st.write("Height : ", height)
 
 
